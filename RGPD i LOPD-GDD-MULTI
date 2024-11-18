@@ -1,0 +1,66 @@
+RGPD I LOPD-GDD-MULTI
+
+ - MOTIVACIÓ
+ 	- Preservar drets i llibertats
+ 	- Persones controlen les seves dades personals
+ 	- Regulació  mes uniforme
+ 	- Lliure circulació de dades
+ 	- Seguretat juridica i generar la confiança
+ 	
+ - CONSENTIMENT
+ 	NO es un consentiment valid
+ 		- Caselles ja marcades
+ 		- El consentiment tàcit, que és el que es dona per suposat.
+ 		- La innanició
+  
+	LOPD-GDD-MULTI:
+		- S'aplica a dades de persones fisiques
+		- No establerts a la UE que ofereixen serveis a EEUU
+		- Consentiment valid per tractament de dades --> SI --> Aquest es valid tmb en gent de 14 o mes anys a la LOPD-DD
+
+	RGPD:
+		- El tractament de dades inclou operacions de:
+			1 Consulta
+			2 Supresió o destrucció
+			3. La difusió o qualsevol altra forma d'habilitació d'accés
+				- Persones que fan tractaments:
+					- Responsable del tractament: Persona juridica o fisica determina finalitat i mitjants tractament.
+						- Quan demana les dades ha de informar:
+							- PEr quan les tindrem
+							- Dels drets dels usuaris i com exercirlos
+							- PErque les volem
+							- Demanar consentiment de dades.
+							
+					- Encarregat del tractament: Persona juridica o fisica que tracta les dades personals.
+					- Delegat de Protecció de dades: Voluntarti o obligatori que s'encarrega dels aspectes de la protecció de dades
+					- Interessat: Persona fisica identificada o identificable
+			
+		- Tipus de dades personals: --> El que identifica a una persona
+			- Categoria especial: Revelen l’origen ètnic o racial, Contenen l’empremta dactilar, etc.
+			- Categoria no especial: Nom i cognoms, Multes de trànsit d'una persona, etc.
+		
+		- Una violació de seguretat de les dades son tota incidencia que ocasioni:
+			- Destruccio
+			- Perdua
+			- Alteració accidental o il·licita
+		
+		- Funcions autoritat sobre la protecció de dades: 
+			- Assesorar sobre LOPDFGDD
+			- Sancionar incompliments de normativa
+			- Fer inspeccions si hi ha incompliments en normativa
+	
+
+		TIPUS DE DRETS
+	
+			- ACCES: Dret a obtenir una còpia de les dades personals
+			- PORTABILITAT: Rebre dades personals en un format estructurat
+			- RECTIFICACIÓ: La correcció de les dades personals inexactes
+			- SUPRESSIÓ: Destruir les dades personals
+			- OBLIT: Destruir les dades en l’entorn on-line
+			- OPOSICIÓ: Negar-se a que es tractin les dades
+			- NO DECISIONS AUTOMATITZADES: Tenir intervenció humana en decisions que li afectin
+			- LIMITACIO DE TRACTAMENT: No aplicar les operacions de tractament quan s’estan corregint dades
+		
+
+
+

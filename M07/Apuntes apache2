@@ -1,0 +1,156 @@
+sudo apt install apache2
+cd /etc/apache2/
+
+||| habilitar puertos |||
+/etc/apache2/ports.conf
+
+||| activar un site  |||
+sudo a2ensite xxx
+
+||| desactivar site |||
+sudo a2dissite xxx
+
+||| reinicar servicio |||
+sudo systemctl reload/restart apache2
+
+||
+cd sites-availabe/
+||| conf ssl certificado |||
+sudo cp 000-default.conf xxx.conf
+sudo nano.conf
+
+<VirtualHost *:80>
+        ServerName www.plana1.local
+        ServerAdmin webmaster@localhost
+
+        DocumentRoot /var/www/html/plana1
+
+        ErrorLog ${APACHE_LOG_DIR}/plana_1_error.log
+        CustomLog ${APACHE_LOG_DIR}/plana_1_access.log combined
+||| REDIRECCION HTTPS |||
+        <IfModule mod_rewrite.c>
+                RewriteEngine On
+                RewriteCond %{HTTPS} off
+                RewriteRule /.*) https://%{HTTP_HOST}%{REQUEST_URI}
+        </IfModule>
+||| FIN REDIRECCION HTTPS |||
+</VirtualHost>
+||| ssl |||
+<IfModule mod_ssl.c>
+        <VirtualHost *:443>
+
+                DocumentRoot /var/www/html/plana1
+
+
+                ErrorLog ${APACHE_LOG_DIR}/ssl_error.log
+                CustomLog ${APACHE_LOG_DIR}/ssl_access.log combined
+
+                SSLEngine on
+
+                SSLCertificateFile      /etc/ssl/certs/ssl-cert-snakeoil.pem
+                SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+
+        </VirtualHost>
+
+</IfModule>
+
+
+sudo mkdir -p /var/www/html/plana1
+sudo nano /var/www/html/plana1/index.html (escribir lo que sea)
+
+
+
+||| espacio web para usuarios de manera automatica |||
+
+a2enmod userdir
+
+
+
+
+||| Autenticacion |||
+
+para crear el primer fichero se utiliza sudo htpasswd -c secret user en los demás sin el -c
+
+sudo mkdir /var/www/html/prova
+sudo mkdir /var/www/html/prova/privat
+sudo nano /var/www/html/prova/index.html
+sudo nano /var/www/html/prova/privat/index.html
+
+sudo nano /etc/apache2/group
+
+a2:users users
+
+sudo cp default-ssl.conf prova.conf
+sudo nano prova.conf
+
+
+
+       <VirtualHost *:80>
+                ServerName www.prova.local
+                ErrorLog ${APACHE_LOG_DIR}/error_.log
+                CustomLog ${APACHE_LOG_DIR}/access_.log combined
+                <IfModule mod_rewrite.c>
+                        RewriteEngine On
+                        RewriteCond %{HTTPS} off
+                        RewriteRule /.* https://%{HTTP_HOST}%{REQUEST_URI}
+                </IfModule>
+        </VirtualHost>
+
+
+<IfModule mod_ssl.c>
+        <VirtualHost *:443>
+
+                <Directory "/var/www/html/prova">
+                        Options -Indexes
+                </Directory>
+
+                <Directory "/var/www/html/prova/privat">
+                        AuthType Basic
+                        AuthName "Aquesta zona està restringida"
+                        AuthBasicProvider file
+                        AuthUserFile /etc/apache2/secret
+                        AuthGroupFile /etc/apache2/secret
+
+                        Require user pcao
+                        Require valid-user
+                        Require group a2
+
+
+                </Directory>
+
+
+                ServerName www.prova.local
+
+                DocumentRoot /var/www/html/prova
+
+                ErrorLog ${APACHE_LOG_DIR}/error_ssl.log
+                CustomLog ${APACHE_LOG_DIR}/access_ssl.log combined
+
+                SSLEngine on
+                SSLCertificateFile      /etc/ssl/certs/ssl-cert-snakeoil.pem
+                SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+
+
+        </VirtualHost>
+</IfModule>
+
+sudo a2enmod ssl rewrite authz_groupfile
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

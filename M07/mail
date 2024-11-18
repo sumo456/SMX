@@ -1,0 +1,124 @@
+#Maquina cliente 
+sudo nano /etc/hosts
+ip dominio mail.dominio
+ej.: 172.16.24.75	daniel.local	mail.daniel.local
+
+#Para saber mi dominio en el servidor
+cat /etc/postfix/main.cf mydestination = dominio
+
+#Instalacion postfix
+sudo apt update && sudo apt upgrade
+sudo apt install postfix
+sudo dpkg-reconfigure postfix
+	daniel.local
+	admin
+	daniel.local
+	yes
+	predeterminado
+	0
+	+
+	ipv4
+
+
+#Directorio de configuración  /etc/postfix
+#Ficheros logs 	sudo tail -f /var/log/syslog | grep postfix
+		sudo tail -f /var/log/mail.err
+		sudo tail -f /var/log/mail.log
+
+telnet localhost 25
+#pasos para envuiar correo
+mail from: user@daniel.local
+rcpt to: user@daniel.local
+data
+subject: dd
+ss
+.
+quit
+
+#Para utilizar Maildir --> 
+sudo nano /etc/postfix/main.cf ls -l
+home_mailbox = Maildir/
+disable_plaintext_auth = no
+sudo systemctl restart postfix
+
+
+
+sudo apt-get install dovecot-imapd dovecot-pop3d dovecot-core
+# Editar el archivo de configuración de Dovecot
+sudo nano /etc/dovecot/dovecot.conf
+
+# Contenido del archivo dovecot.conf
+sudo systemctl restart dovecot.service
+sudo nano /etc/dovecot/conf.d/10-mail.conf
+#Comentar la linia
+mail_location = mbox:~/mail:INBOX=/var/mail/%u
+#Descomentar la linia
+mail_location = maildir:~/Maildir
+
+
+#Para conectarme y enviar correo utilizar pasos de enviar correo
+telnet 172.16.24.75 25
+
+#Revisar bandeja 
+telnet 172.16.24.75 110
+user usuario (user)
+pass contraseña (server)
+#Mirar lista de correos
+list
+#Mirar que hay en el correo
+retr 1 (numero del correo a mirar)
+
+
+#PARAMETROS ADICIONALES
+# Limitación de redes y hosts permitidos para reenviar
+mynetworks = 127.0.0.0/8, 172.16.0.0/16, 192.168.16.0/24
+
+# Limitación de tamaño de buzones (10MB)
+mailbox_size_limit = 10485760
+
+# Tamaño máximo del mensaje (2MB)
+message_size_limit = 2097152
+
+# Restricción de envio 
+smtpd_sender_restrictions = check_sender_access hash:/etc/postfix/sender_access
+#Crear el archivo /etc/postfix/sender_access con el contenido:
+sandra@servidor(daniel.local).local REJECT "No estàs benvinguda."
+pere@servidor(daniel.local).local REJECT "No pots enviar correus."
+sudo postmap /etc/postfix/sender_access
+
+
+||configuración de certificados postfix||
+
+sudo openssl req -x509 -nodes -out daniel.local.crt -keyout daniel.local.key
+sudo mv daniel.local.* /etc/potfix
+
+sudo nano /etc/postfix/main.cf
+# Añade o modifica las siguientes líneas:
+smtpd_tls_cert_file = /etc/postfix/daniel.local.crt
+smtpd_tls_key_file = /etc/poostfix/daniel.local.key
+smtpd_tls_security_level = may
+smtpd_use_tls = yes
+smtp_tls_security_level = may
+smtpd_tls_security_level = may
+smtp_tls_note_starttls_offer = yes
+smtpd_tls_loglevel = 1
+smtpd_tls_received_header = yes
+
+
+sudo nano /etc/dovecot/conf.d/10-ssl.conf
+# Asegúrate de que las siguientes líneas estén descomentadas y configuradas así:
+ssl = required
+ssl_cert = </etc/postfix/daniel.local.crt
+ssl_key = </etc/poostfix/daniel.local.key
+
+|||PARA ENVIAR CORREO CON CERTIFICADO|||
+POSTFIX
+openssl s_client -connect (nom domini):25 -starttls smtp
+    openssl s_client -connect (domini).local:465 -starttls smtp
+
+DEVOCOT
+openssl s_client -connect (ip servidor):995
+
+
+
+

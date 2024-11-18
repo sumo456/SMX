@@ -1,0 +1,34 @@
+Polítiques de còpies de seguretat
+	- Identificar quines dades cal preservar
+	- Establir la freqüència dels processos de còpia i planificar la còpia
+	- Calcular volum de dades
+	- Dispositius i suports d'emmagatzemament
+	- Magatzem físic ignífug
+	- Planificar la restauració de les còpies
+	- Quines transformacions cal fer a les dades abans de guardar-les:
+		- Xifrat
+		- Compressió
+	- Finestra de temps de backup (cuando se hacen las cópias)
+	
+
+ESTRATEGIA DE COPIA DE SEGURETAT 3-2-1 (BÀSICA)
+
+L'enfoc 3-2-1.
+	- "3"- Tindrem en total tres còpies de les dades, de manera que cap incident pugui destruir 		les dades. És l'original i 2 còpies redundants.
+	- "2"- Guardar els arxius de còpia en 2 formats diferents, per exemple una unitat externa USB i a un NAS.
+	- "1"- Guardar una còpia en 1 ubicació remota per assegurar la protecció en cas de catàstrofe física (robatoris, incendis, inundacions...). El més habitual és emportar-se la còpia físicament a un altre edifici o enviar-ho a una unitat virtual al núvol.
+	
+	DOCUMENTAR TODO EL PROCESO PARA RECUPERAR LA COPIA DE SEGURIDAD
+
+
+TIPUS DE COPIES DE SEGURETAT
+
+- Completa
+- Diferencial
+- Incremental
+
+
+1. COPIA DE SEGURETAT COMPLETA
+	- Procés de Còpia
+	- Procés de Restauració
+	- 

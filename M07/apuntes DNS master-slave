@@ -1,0 +1,72 @@
+SERVIDOR MASTER
+cd /etc/bind/
+named.conf.local 
+zone "servei.local" {
+	type master;
+	file "/etc/bind/db.serveis.local";
+	allow-transfer { 172.16.24.225};
+};
+
+zone "24.16.172.in-addr.arpa" {
+	type master;
+	file"/etc/bind/db.24.16.172";
+	allow-transfer {172.16.24.225; };
+};
+
+sudo cp db.local. db.serveis.local
+sudo nano db.serveis.local
+ctrl+altGr localhost * serveis
+@ 	IN	NS	master.serveis.local
+@ 	IN	NS	slave.serveis.local
+master	IN	A	172.16.24.75
+slave	IN	A	172.16.24.225
+	IN	MX 1	mail
+mail	IN	A	172.16.24.5
+
+www	IN	A	172.16.24.10
+moodle/moodle.serveis.local.	IN	CNAME	www
+
+named-checkconf named.conf.local
+named-chechconf named.conf
+named-chechzone serveis.local db.serveis.local
+sudo systemctl restart bind9
+sudo systemctl status bind9
+nslookup master.serveis.local 172.16.24.75
+nslookup mail.serveis.local 172.16.24.75
+sudo cp db.127 db.24.16.172
+sudo nano db.24.16.172
+ctrl+alt localhost * serveis
+@ 	IN	NS	master.serveis.local.
+@ 	IN	NS	slave.serveis.local.
+75	IN	PTR	master.serveis.local.
+100	IN	PTR	slave.serveis.local.
+
+5	IN	PTR	mail.serveis.local.
+10	IN	PTR	www.serveis.local.
+
+named-checkzone 24.16.172.in-addr.arpa db.24.16.172
+sudo systemctl restart bind9
+nsloockup 172.16.24.225 172.16.24.75
+
+SERVIDOR SLAVE
+sudo apt install bind9
+sudo nano named.conf.local
+zone "servei.local" {
+	type slave;
+	file "db.serveis.local";
+	masters { 172.16.24.75};
+};
+
+zone "24.16.172.in-addr.arpa" {
+	type slave;
+	file "db.24.16.172";
+	masters {172.16.24.75; };
+};
+	
+	
+named-checkconf named.conf.local
+sudo systemctl restart bind9
+nslookup 172.16.24.10 172.16.24.225
+
+
+

@@ -1,0 +1,11 @@
+configure ROUTER
+File configure address = /etc/network/interface
+
+#conf adaptador intern
+auto enp0s8
+iface enpp0s8 inet static
+address 192.168.1.1
+netmark 255.255.255.0
+
+sudo service networking restart
+

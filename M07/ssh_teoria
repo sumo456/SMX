@@ -1,0 +1,22 @@
+PORT FORWADING
+
+ssh	TCP	127.0.0.1	2222	ip nat	22
+
+
+||| BANNER |||
+Modificar archivo /etc/ssh/sshd_config
+Banner /etc/ssh/msg
+Creacion de archivo msg sudo vim /etc/ssh/msg
+reiniciar servicio ssh.service
+
+||| ACCESO SIN CONTRASEÑA|||
+
+Generar claves ssh-keygen -t rsa
+Enviar claves por ssh ssh-copy-id usuari@servidor1
+Comprobar haciendo ssh user@ip
+
+||| SSH ROOT |||
+Cambiar passwd sudo passwd root
+Modificar archivo /etc/ssh/sshd_config
+Modificamos el parametro PermitRootLogin yes
+Reiniciar servicio ssh.service
